@@ -32,8 +32,67 @@ header {
     margin: 0;
   }
 }
+// кнопка в корзині
+.cartEmpty {
+  text-align: center;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+
+  .greenBtn {
+    width: 245px;
+    margin-top: 20px;
+    padding: 18px;
+    color: #ffffff;
+    background-color: #9dd458;
+    border: transparent;
+    border-radius: 18px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease-out;
+    &:hover {
+      background: lighten($color: #9dd458, $amount: 10%);
+    }
+    &:active {
+      background: darken($color: #9dd458, $amount: 10%);
+    }
+
+    &:hover {
+      img {
+        transform: rotate(180deg) translateX(15px);
+      }
+    }
+
+    img {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+}
 
 
+
+.search-block{
+  position: relative;
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  padding: 0 15px;
+
+.clear{
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  width: 26px;
+  height: 26px;
+}
+}
 // button
 .button {
   background: #ffffff;
@@ -68,7 +127,8 @@ input {
   z-index: 1;
 }
 // drawer Корзина
-.drawer {
+.drawer { 
+  
   display: flex;
   flex-direction: column;
   padding: 30px;
