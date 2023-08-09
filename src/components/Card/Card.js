@@ -4,17 +4,18 @@ import s from './Card.module.scss'
 
 
 
-function Card({title,imageUrl,price,onClickFav,onClickAdd}) {
+function Card({ id,title,imageUrl,price,onClickFav,onClickAdd,favorited = false }) {
 
   const[isAdded,setIsAdded] = useState(false);
-  const[isFavorite,setIsFavorite] = useState(false);
+  const[isFavorite,setIsFavorite] = useState(favorited);
 
 
   const onClickPlus = () => {
-    onClickAdd({title,imageUrl,price})
+    onClickAdd({id,title,imageUrl,price})
     setIsAdded(!isAdded)
   }
   const onClickFavorite = () => {
+    onClickFav({id,title,imageUrl,price})
     setIsFavorite(!isFavorite)
   }
 
