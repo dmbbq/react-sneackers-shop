@@ -32,6 +32,8 @@ function App() {
       });
   }, []);
 
+
+
   const onAddToCart = async (obj) => {
     if (cartItems.find((item) => item.id === obj.id)) {
       await axios.delete(
@@ -43,16 +45,22 @@ function App() {
       setCartItems((prev) => [...prev, data]);
     }
   };
-  
+   
 
   const onAddToFavorite = async (obj) => {
+   try {
     if (favorites.find(favObj => favObj.id === obj.id)) {
       await axios.delete(`https://64d33b7067b2662bf3dbe03d.mockapi.io/favorites/${obj.id}`);
-      setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+      // setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+
     } else {
       const { data } = await axios.post("https://64d33b7067b2662bf3dbe03d.mockapi.io/favorites", obj);
       setFavorites((prev) => [...prev, data]);
     }
+    
+   } catch (error) {
+    alert('Не вдалось добавити в обрані')
+   }
   };
 
   const onRemoveItem = (id) => {
@@ -101,3 +109,33 @@ function App() {
 }
 
 export default App;
+
+
+
+
+// const onAddToCart = async (obj) => {
+//   try {
+//     const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id));
+//     if (findItem) {
+//       setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id)));
+//       await axios.delete(`https://60d62397943aa60017768e77.mockapi.io/cart/${findItem.id}`);
+//     } else {
+//       setCartItems((prev) => [...prev, obj]);
+//       const { data } = await axios.post('https://60d62397943aa60017768e77.mockapi.io/cart', obj);
+//       setCartItems((prev) =>
+//         prev.map((item) => {
+//           if (item.parentId === data.parentId) {
+//             return {
+//               ...item,
+//               id: data.id,
+//             };
+//           }
+//           return item;
+//         }),
+//       );
+//     }
+//   } catch (error) {
+//     alert('Ошибка при добавлении в корзину');
+//     console.error(error);
+//   }
+// };
