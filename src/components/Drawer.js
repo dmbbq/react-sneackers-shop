@@ -14,7 +14,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
 
         {items.length > 0 ? (
           <div>
-            <div className="items">
+            <div  className="items">
               {items.map((obj) => (
                 <div key={obj.id} className="cardItem d-flex align-center mb-20">
                   <img
@@ -64,7 +64,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
               alt="Empty"
             />
             <h2>Корзина пустая</h2>
-            <p className="opacity-6"></p>
+            <p className="opacity-6">Добавте хоча б одну пару кросівок,щоб зробити замолення.</p>
             <button className="greenBtn" onClick={onClose}>
               <img src="img/arrow.svg" alt="Arrow" />
               Вернуться назад
