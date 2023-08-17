@@ -13,6 +13,7 @@ function Card({
   added = false,
   loading = false,
 }) {
+  console.log(title,added)
   const [isAdded, setIsAdded] = useState(added);
   const [isFavorite, setIsFavorite] = useState(favorited);
 

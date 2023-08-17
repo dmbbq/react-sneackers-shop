@@ -1,4 +1,4 @@
-  import { useState, useEffect, React } from "react";
+  import  React, { useState, useEffect } from "react";
   import { Routes, Route } from "react-router-dom";
   import axios from "axios";
   import Drawer from "./components/Drawer";
@@ -92,9 +92,11 @@
     const onChangeSearhInput = (event) => {
       setSearchValue(event.target.value);
     };
-
+    const isItemAdded =(id) =>  {
+          return cartItems.some((obj) => Number(obj.id) === Number(id)) 
+        }
     return (
-      <AppContext.Provider value={{ items, cartItems, favorites }}>
+      <AppContext.Provider value={{ items, cartItems, favorites,isItemAdded }}>
         <div className="wrapper clear">
           {cartOpened && (
             <Drawer
