@@ -1,6 +1,7 @@
 import { useState } from "react";
 import s from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
+// import AppContext from "../../context";
 
 function Card({
   id,
@@ -13,8 +14,9 @@ function Card({
   added = false,
   loading = false,
 }) {
-  console.log(title,added)
+  
   const [isAdded, setIsAdded] = useState(added);
+  // const { isItemAdded } = useContext(AppContext)
   const [isFavorite, setIsFavorite] = useState(favorited);
 
   const onClickPlus = () => {

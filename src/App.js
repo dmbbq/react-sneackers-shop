@@ -6,6 +6,7 @@
   import Home from "./pages/Home";
   import Favorites from "./pages/Favorites";
   import AppContext from "./context";
+  
 
   function App() {
     const api = "https://64ca4fe7700d50e3c704b309.mockapi.io/items";
@@ -96,7 +97,7 @@
           return cartItems.some((obj) => Number(obj.id) === Number(id)) 
         }
     return (
-      <AppContext.Provider value={{ items, cartItems, favorites,isItemAdded }}>
+      <AppContext.Provider value={{ items, cartItems, favorites,isItemAdded,setCartOpened,setCartItems }}>
         <div className="wrapper clear">
           {cartOpened && (
             <Drawer

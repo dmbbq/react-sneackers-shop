@@ -90,21 +90,19 @@ header {
   }
 }
 
-
-
-.search-block{
+.search-block {
   position: relative;
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0 15px;
 
-.clear{
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  width: 26px;
-  height: 26px;
-}
+  .clear {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    width: 26px;
+    height: 26px;
+  }
 }
 // button
 .button {
@@ -140,8 +138,7 @@ input {
   z-index: 1;
 }
 // drawer Корзина
-.drawer { 
-  
+.drawer {
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -154,7 +151,7 @@ input {
   h2 {
     margin: 0;
   }
-  .items{
+  .items {
     overflow: auto;
     margin-bottom: 45px;
   }
@@ -200,9 +197,12 @@ input {
     }
   }
   .greenBtn {
+ 
+
     position: relative;
-    &:hover{
-      img{
+    &:hover {
+      img {
+        animation: button-loading 0.2s ease-in-out infinite;
         transform: translateX(15px);
       }
     }
@@ -212,6 +212,7 @@ input {
       right: 30px;
       transition: transform 0.15s ease-in-out;
     }
+    
   }
 }
 // CARDITEM в КОРЗИНЕ
@@ -241,4 +242,15 @@ input {
 }
 .items {
   flex: 1;
+}
+@keyframes button-loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
 }

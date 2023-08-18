@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import AppContext from "../context";
 import Card from "../components/Card/Card";
 
@@ -13,7 +13,7 @@ function Home({
   onAddToCart,
   isLoading
 }) {
-  const { isItemAdded } = React.useContext(AppContext);
+  const { isItemAdded } = useContext(AppContext);
 
   const renderItems = () => {
     const filteredItems = items.filter((item) =>
