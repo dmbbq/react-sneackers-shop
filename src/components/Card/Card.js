@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import s from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 // import AppContext from "../../context";
@@ -14,17 +15,17 @@ function Card({
   added = false,
   loading = false,
 }) {
-  
   const [isAdded, setIsAdded] = useState(added);
   // const { isItemAdded } = useContext(AppContext)
   const [isFavorite, setIsFavorite] = useState(favorited);
+  const obj = { id, parentId: id, title, imageUrl, price };
 
   const onClickPlus = () => {
-    onClickAdd({ id, title, imageUrl, price });
+    onClickAdd(obj);
     setIsAdded(!isAdded);
   };
   const onClickFavorite = () => {
-    onClickFav({ id, title, imageUrl, price });
+    onClickFav(obj);
     setIsFavorite(!isFavorite);
   };
 
@@ -47,25 +48,29 @@ function Card({
         </ContentLoader>
       ) : (
         <>
-          <div className={s.favorite} onClick={onClickFavorite}>
-            <img
-              alt="unliked"
-              src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg"}
-            />
-          </div>
-          <img width='100%' height={135} src={imageUrl} alt="unliked" />
+          {onClickFav && (
+            <div className={s.favorite} onClick={onClickFavorite}>
+              <img
+                alt="unliked"
+                src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg"}
+              />
+            </div>
+          )}
+          <img width="100%" height={135} src={imageUrl} alt="unliked" />
           <h5>{title}</h5>
           <div className="d-flex justify-between align-center">
             <div className="d-flex flex-column">
-              <p>Цена:</p>
-              <b>{price} руб</b>
+              <p>Ціна:</p>
+              <b>{price} грн</b>
             </div>
-            <img
-              className={s.plus}
-              onClick={onClickPlus}
-              src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"}
-              alt="plus"
-            />
+            {onClickAdd && (
+              <img
+                className={s.plus}
+                onClick={onClickPlus}
+                src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"}
+                alt="plus"
+              />
+            )}
           </div>{" "}
         </>
       )}

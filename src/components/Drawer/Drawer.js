@@ -1,49 +1,63 @@
-import { useContext, useState } from "react";
-import Info from "./Info";
-import AppContext from "../context";
+import { useState, useRef } from "react";
 import axios from "axios";
 
+import Info from "../Info";
+import { useCart } from "../../hooks/useCart";
 
-const delay = (ms) => new Promise((resolve) => {
-  setTimeout(resolve,ms)
-})
+import s from "./Drawer.module.scss";
 
-function Drawer({ onClose, onRemove, items = [] }) {
+const delay = (ms) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
+function Drawer({ onClose, onRemove, items = [], opened }) {
+  const { cartItems, setCartItems, totalPrice } = useCart();
+
   const [isOrderComplite, setIsOrderComplite] = useState(false);
   const [odrerId, setOdrerId] = useState(null);
-  const [isLoading,setIsLoading] = useState(false)
-
-  const {cartItems, setCartItems } = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClickOrder = async () => {
     try {
-      setIsLoading(true)
-      const {data} = await axios.post(
+      setIsLoading(true);
+      const { data } = await axios.post(
         "https://64df78a971c3335b2582b10e.mockapi.io/orders/orders",
-        {items :cartItems}
+        { items: cartItems }
       );
-      
-      setOdrerId(data.id)
+
+      setOdrerId(data.id);
       setIsOrderComplite(true);
       setCartItems([]);
 
-   for (let i = 0; i < cartItems.length; i++) {
-    const item = cartItems[i];
-    await axios.delete(`https://64ce18750c01d81da3ee83ad.mockapi.io/cart/${item.id}`)
+      for (let i = 0; i < cartItems.length; i++) {
+        const item = cartItems[i];
+        await axios.delete(
+          `https://64ce18750c01d81da3ee83ad.mockapi.io/cart/${item.id}`
+        );
 
-    await delay(1000)
-   }
-
-      
+        await delay(1000);
+      }
     } catch (error) {
-      alert('Помилка при створенні замовлення :(')
+      alert("Помилка при створенні замовлення :(");
     }
-    setIsLoading(false)
+    setIsLoading(false);
+  };
+
+  const overlayRef = useRef(null);
+  const handleClickOverlay = (event) => {
+    if (overlayRef.current === event.target) {
+      onClose();
+    }
   };
 
   return (
-    <div className="overlay">
-      <div className="drawer">
+    <div
+      ref={overlayRef}
+      className={`${s.overlay} ${opened ? s.overlayVisible : ""}`}
+      onClick={handleClickOverlay}
+    >
+      <div className={s.drawer}>
         <h2 className="d-flex justify-between mb-20 ">
           Корзина
           <img
@@ -70,7 +84,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
                     alt="Sneakers"
                   />
                   <div className="mr-20">
-                    <p className="mb-5">{obj.title}</p> <b>{obj.price} руб</b>{" "}
+                    <p className="mb-5">{obj.title}</p> <b>{obj.price} грн</b>{" "}
                   </div>
                   <img
                     onClick={() => onRemove(obj.id)}
@@ -84,18 +98,22 @@ function Drawer({ onClose, onRemove, items = [] }) {
             <div className="cardTotalBlock">
               <ul>
                 <li className="d-flex">
-                  <span>Итого:</span>
+                  <span>Загалом:</span>
                   <div></div>
-                  <b>21 428руб. </b>
+                  <b>{totalPrice} грн. </b>
                 </li>
                 <li className="d-flex">
-                  <span>Налог 5%</span>
+                  <span>Податок 5%</span>
                   <div></div>
-                  <b>1026руб. </b>
+                  <b>{((totalPrice / 100) * 5).toFixed(2)} грн. </b>
                 </li>
               </ul>
-              <button disabled={isLoading}   onClick={onClickOrder} className="greenBtn">
-                Оформить заказ
+              <button
+                disabled={isLoading}
+                onClick={onClickOrder}
+                className="greenBtn"
+              >
+                Оформити замовлення
                 <img src="/img/arrow.svg" alt="Arrow" />
               </button>
             </div>{" "}
@@ -108,7 +126,11 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 ? `Ваше замовлення ${odrerId}# буде передане кур'єру`
                 : "Добавте хоча б одну пару кросівок,щоб зробити замолення."
             }
-            image={isOrderComplite ? "/img/complete-order.jpg" : "/img/empty-cart.jpg"}
+            image={
+              isOrderComplite
+                ? "/img/complete-order.jpg"
+                : "/img/empty-cart.jpg"
+            }
           />
         )}
       </div>
@@ -116,5 +138,3 @@ function Drawer({ onClose, onRemove, items = [] }) {
   );
 }
 export default Drawer;
-
-// https://64ce18750c01d81da3ee83ad.mockapi.io/cart шлях де будуть виводитись все що ми добавили в корзину"backend"
