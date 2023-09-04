@@ -52,11 +52,20 @@ function Card({
             <div className={s.favorite} onClick={onClickFavorite}>
               <img
                 alt="unliked"
-                src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg"}
+                src={
+                  isFavorite
+                    ? `${process.env.PUBLIC_URL}/img/liked.svg`
+                    : `${process.env.PUBLIC_URL}/img/unliked.svg`
+                }
               />
             </div>
           )}
-          <img width="100%" height={135} src={imageUrl} alt="unliked" />
+          <img
+            width="100%"
+            height={135}
+            src={process.env.PUBLIC_URL + "/" + imageUrl}
+            alt="unliked"
+          />
           <h5>{title}</h5>
           <div className="d-flex justify-between align-center">
             <div className="d-flex flex-column">
@@ -67,7 +76,11 @@ function Card({
               <img
                 className={s.plus}
                 onClick={onClickPlus}
-                src={isAdded ? "/img/btn-checked.svg" : "/img/btn-plus.svg"}
+                src={
+                  isAdded
+                    ? `${process.env.PUBLIC_URL}/img/btn-checked.svg`
+                    : `${process.env.PUBLIC_URL}/img/btn-plus.svg`
+                }
                 alt="plus"
               />
             )}
