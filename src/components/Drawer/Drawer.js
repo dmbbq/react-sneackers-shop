@@ -63,7 +63,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
           <img
             onClick={onClose}
             className="removeBtn cu-p"
-            src="/img/btn-remove.svg"
+            src={process.env.PUBLIC_URL + "/img/btn-remove.svg"}
             alt="close"
           />
         </h2>
@@ -80,7 +80,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                     className="mr-20"
                     width={70}
                     height={70}
-                    src={obj.imageUrl}
+                    src={process.env.PUBLIC_URL + "/" + obj.imageUrl}
                     alt="Sneakers"
                   />
                   <div className="mr-20">
@@ -89,7 +89,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                   <img
                     onClick={() => onRemove(obj.id)}
                     className="removeBtn"
-                    src="/img/btn-remove.svg"
+                    src={process.env.PUBLIC_URL + "/img/btn-remove.svg"}
                     alt="remove"
                   />
                 </div>
@@ -114,7 +114,10 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                 className="greenBtn"
               >
                 Оформити замовлення
-                <img src="/img/arrow.svg" alt="Arrow" />
+                <img
+                  src={process.env.PUBLIC_URL + "/img/arrow.svg"}
+                  alt="Arrow"
+                />
               </button>
             </div>{" "}
           </div>
@@ -128,8 +131,8 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
             }
             image={
               isOrderComplite
-                ? "/img/complete-order.jpg"
-                : "/img/empty-cart.jpg"
+                ? `${process.env.PUBLIC_URL}/img/complete-order.jpg`
+                : `${process.env.PUBLIC_URL}/img/empty-cart.jpg`
             }
           />
         )}

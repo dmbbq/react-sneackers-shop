@@ -38,12 +38,12 @@ function Home({
           {searchValue ? `Поиск по запросу: "${searchValue}"` : "Всі кросівки"}
         </h1>
         <div className="search-block d-flex">
-          <img src="/img/search.svg" alt="Search" />
+          <img src={process.env.PUBLIC_URL + "/img/search.svg"} alt="Search" />
           {searchValue && (
             <img
               onClick={() => setSearchValue("")}
               className="clear cu-p"
-              src="/img/btn-remove.svg"
+              src={process.env.PUBLIC_URL + "/img/btn-remove.svg"}
               alt="clear"
             />
           )}
